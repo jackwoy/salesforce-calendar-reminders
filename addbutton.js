@@ -54,6 +54,22 @@ function addFormHTML(){
 	$('head').append(formCSS);
 	$("#gcal_ext_popup").dialog({autoOpen:false});
 	$("#gcal_ext_update").click(updateURL);
+	setCurrentDateTime();
+	populateTitleDesc();
+}
+
+function setCurrentDateTime(){
+	var currentDateTime = getDatetimeLocalString(new Date(Date.now()));
+	$('#gcal_ext_start').val(currentDateTime);
+	$('#gcal_ext_end').val(currentDateTime);
+}
+
+function populateTitleDesc(){
+	var caseHeader = $('.pageDescription').text();
+	var titleText = "Update" + caseHeader;
+	var descText = $('td.labelCol:contains("Subject")').next('td').text();
+	$('#gcal_ext_title').val(titleText);
+	$('#gcal_ext_desc').val(descText);
 }
 
 function updateURL(){
