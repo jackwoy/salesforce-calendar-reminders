@@ -14,19 +14,13 @@ var urlStart = "http://www.google.com/calendar/event?action=TEMPLATE";
 function addButton(){
 	var topRow = $("#topButtonRow");
 	var bottomRow = $("#bottomButtonRow");
-	var newButtonTop = document.createElement("input"); 
 
-	newButtonTop.setAttribute("type","button");
-	newButtonTop.setAttribute("value","Set Reminder");
-	newButtonTop.setAttribute("onclick","alert('Not yet implemented.');");
-	newButtonTop.className = "btn";
+	var newButtonHTML = '<input class="btn" type="button" value="Set Reminder" onclick="alert(\'Not yet implemented.\');" />'
 
 	// TODO: Necessary wireup for GCal event creation.
 
-	var newButtonBottom = newButtonTop.cloneNode();
-
-	topRow.append(newButtonTop);
-	bottomRow.append(newButtonBottom);
+	topRow.append(newButtonHTML);
+	bottomRow.append(newButtonHTML);
 }
 
 function updateURL(){
