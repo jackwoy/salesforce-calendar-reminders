@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Salesforce Google Calendar
 // @namespace    com.ooyala.jackw
-// @version      0.1
+// @version      1.0
 // @description  Adds UI for creating Google Calendar events from Salesforce comments
 // @author       jackw@ooyala.com
 // @match        https://na5.salesforce.com/*
@@ -36,8 +36,7 @@ function addFormHTML(){
 	<input id="gcal_ext_title" type="text" />\
 	<label for="gcal_ext_desc">Description</label>\
 	<input id="gcal_ext_desc" type="text" />\
-	<input id="gcal_ext_update" type="button" value="Update URL" />\
-	<a id="calendarLink" target="_blank" href="http://www.google.com/calendar/event?action=TEMPLATE&text=Australia%20Day%20lunch&dates=20080126T113000Z/20080126T124500Z&details=A%20traditional%20barbeque%20for%20our%20big%20day&location=On%20your%20local%20beach&sprop=website:">Add to Calendar</a>\
+	<input id="gcal_ext_update" type="button" value="Set reminder" />\
 	</div>';
 
 	var formCSS = '<style type="text/css">\
@@ -84,8 +83,7 @@ function updateURL(){
 		"&dates=" + getGCalDate(new Date(start), allday) + "/" + getGCalDate(new Date(end), allday) +
 		"&details=" + encodeURIComponent(desc) +
 		"&sprop=website:";
-
-	console.log(fullURL);
+	window.open(fullURL);
 }
 
 function getGCalDate(date, dateOnly){
