@@ -25,32 +25,44 @@ function addButton(){
 }
 
 function addFormHTML(){
-	var formHTML = '<div id="gcal_ext_popup" title="Reminder Dialog"><label for="start">Start Time</label>\
-	<input id="start" type="datetime-local" />\
-	<label for="end">End Time</label>\
-	<input id="end" type="datetime-local" />\
-	<label for="allday">All Day</label>\
-	<input id="allday" type="checkbox" />\
-	<label for="title">Title</label>\
-	<input id="title" type="text" />\
-	<label for="desc">Description</label>\
-	<input id="desc" type="text" />\
-	<input type="button" value="Update URL" onclick="updateURL();" />\
-	<a id="calendarLink" href="http://www.google.com/calendar/event?action=TEMPLATE&text=Australia%20Day%20lunch&dates=20080126T113000Z/20080126T124500Z&details=A%20traditional%20barbeque%20for%20our%20big%20day&location=On%20your%20local%20beach&sprop=website:">Add to Calendar</a>\
+	var formHTML = '<div id="gcal_ext_popup" title="Reminder Dialog">\
+	<label for="gcal_ext_start">Start Time</label>\
+	<input id="gcal_ext_start" type="datetime-local" />\
+	<label for="gcal_ext_end">End Time</label>\
+	<input id="gcal_ext_end" type="datetime-local" />\
+	<label for="gcal_ext_allday">All Day</label>\
+	<input id="gcal_ext_allday" type="checkbox" />\
+	<label for="gcal_ext_title">Title</label>\
+	<input id="gcal_ext_title" type="text" />\
+	<label for="gcal_ext_desc">Description</label>\
+	<input id="gcal_ext_desc" type="text" />\
+	<input id="gcal_ext_update" type="button" value="Update URL" />\
+	<a id="calendarLink" target="_blank" href="http://www.google.com/calendar/event?action=TEMPLATE&text=Australia%20Day%20lunch&dates=20080126T113000Z/20080126T124500Z&details=A%20traditional%20barbeque%20for%20our%20big%20day&location=On%20your%20local%20beach&sprop=website:">Add to Calendar</a>\
 	</div>';
 
-	$('body').append(formHTML);
+	var formCSS = '<style type="text/css">\
+	#gcal_ext_popup label, #gcal_ext_popup input{\
+		display:block;\
+		width:100%;\
+	}\
+	#gcal_ext_popup input{\
+		margin-bottom:10px;\
+	}\
+	</style>';
 
+	$('body').append(formHTML);
+	$('head').append(formCSS);
 	$("#gcal_ext_popup").dialog({autoOpen:false});
+	$("#gcal_ext_update").click(updateURL);
 }
 
 function updateURL(){
-	var start = document.getElementById('start').value;
-	var end = document.getElementById('end').value;
-	var title = document.getElementById('title').value;
-	var desc = document.getElementById('desc').value;
-	var allday = document.getElementById('allday').checked;
-
+	var start = $('#gcal_ext_start').val();
+	var end = $('#gcal_ext_end').val();
+	var title = $('#gcal_ext_title').val();
+	var desc = $('#gcal_ext_desc').val();
+	var allday = $('#gcal_ext_allday').val();
+console.log(allday);
 	var fullURL = 
 		urlStart +
 		"&text=" + encodeURIComponent(title) +
@@ -62,6 +74,7 @@ function updateURL(){
 }
 
 function getGCalDate(date, dateOnly){
+	console.log(date);
 	var replacePattern = /[-:.]/gi;
 	var dstring = date.toISOString();
 	// Remove -, :, . from date string.
