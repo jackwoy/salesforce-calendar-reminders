@@ -1,12 +1,13 @@
 // ==UserScript==
 // @name         Salesforce Google Calendar
-// @namespace    http://com.ooyala.jackw
+// @namespace    com.ooyala.jackw
 // @version      0.1
 // @description  Adds UI for creating Google Calendar events from Salesforce comments
 // @author       jackw@ooyala.com
 // @match        https://na5.salesforce.com/*
 // @grant        none
 // @require      https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js
+// @require      https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js
 // ==/UserScript==
 
 var urlStart = "http://www.google.com/calendar/event?action=TEMPLATE";
@@ -15,12 +16,32 @@ function addButton(){
 	var topRow = $("#topButtonRow");
 	var bottomRow = $("#bottomButtonRow");
 
-	var newButtonHTML = '<input class="btn" type="button" value="Set Reminder" onclick="alert(\'Not yet implemented.\');" />'
+	var newButtonHTML = '<input class="btn" type="button" value="Set Reminder" onclick="$(\'#gcal_ext_popup\').dialog(\'open\');" />';
 
 	// TODO: Necessary wireup for GCal event creation.
 
 	topRow.append(newButtonHTML);
 	bottomRow.append(newButtonHTML);
+}
+
+function addFormHTML(){
+	var formHTML = '<div id="gcal_ext_popup" title="Reminder Dialog"><label for="start">Start Time</label>\
+	<input id="start" type="datetime-local" />\
+	<label for="end">End Time</label>\
+	<input id="end" type="datetime-local" />\
+	<label for="allday">All Day</label>\
+	<input id="allday" type="checkbox" />\
+	<label for="title">Title</label>\
+	<input id="title" type="text" />\
+	<label for="desc">Description</label>\
+	<input id="desc" type="text" />\
+	<input type="button" value="Update URL" onclick="updateURL();" />\
+	<a id="calendarLink" href="http://www.google.com/calendar/event?action=TEMPLATE&text=Australia%20Day%20lunch&dates=20080126T113000Z/20080126T124500Z&details=A%20traditional%20barbeque%20for%20our%20big%20day&location=On%20your%20local%20beach&sprop=website:">Add to Calendar</a>\
+	</div>';
+
+	$('body').append(formHTML);
+
+	$("#gcal_ext_popup").dialog({autoOpen:false});
 }
 
 function updateURL(){
@@ -79,4 +100,6 @@ function toTwoDigits(datePart)
 	}
 }
 
+$('head').append('<link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/themes/smoothness/jquery-ui.css">');
 addButton();
+addFormHTML();
