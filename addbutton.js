@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Salesforce Google Calendar
 // @namespace    com.ooyala.jackw
-// @version      1.0
+// @version      1.1
 // @description  Adds UI for creating Google Calendar events from Salesforce comments
 // @author       jackw@ooyala.com
 // @match        https://na5.salesforce.com/*
@@ -36,7 +36,6 @@ function addFormHTML(){
 	<input id="gcal_ext_title" type="text" />\
 	<label for="gcal_ext_desc">Description</label>\
 	<input id="gcal_ext_desc" type="text" />\
-	<input id="gcal_ext_update" type="button" value="Set reminder" />\
 	</div>';
 
 	var formCSS = '<style type="text/css">\
@@ -51,8 +50,21 @@ function addFormHTML(){
 
 	$('body').append(formHTML);
 	$('head').append(formCSS);
-	$("#gcal_ext_popup").dialog({autoOpen:false});
-	$("#gcal_ext_update").click(updateURL);
+	$("#gcal_ext_popup").dialog(
+		{
+			autoOpen:false,
+			buttons: {
+	        	"Set Reminder": function() {
+	        		updateURL();
+	          		$( this ).dialog( "close" );
+		        },
+		        "Cancel": function() {
+		          $( this ).dialog( "close" );
+		        }
+			}
+
+		}
+	);
 	setCurrentDateTime();
 	populateTitleDesc();
 }
