@@ -62,7 +62,6 @@ function updateURL(){
 	var title = $('#gcal_ext_title').val();
 	var desc = $('#gcal_ext_desc').val();
 	var allday = $('#gcal_ext_allday').val();
-console.log(allday);
 	var fullURL = 
 		urlStart +
 		"&text=" + encodeURIComponent(title) +
@@ -74,7 +73,6 @@ console.log(allday);
 }
 
 function getGCalDate(date, dateOnly){
-	console.log(date);
 	var replacePattern = /[-:.]/gi;
 	var dstring = date.toISOString();
 	// Remove -, :, . from date string.
