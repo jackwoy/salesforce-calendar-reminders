@@ -61,7 +61,7 @@ function updateURL(){
 	var end = $('#gcal_ext_end').val();
 	var title = $('#gcal_ext_title').val();
 	var desc = $('#gcal_ext_desc').val();
-	var allday = $('#gcal_ext_allday').val();
+	var allday = $('#gcal_ext_allday:checked').val();
 	var fullURL = 
 		urlStart +
 		"&text=" + encodeURIComponent(title) +
