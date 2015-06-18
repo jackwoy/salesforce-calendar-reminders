@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Salesforce Google Calendar
 // @namespace    com.ooyala.jackw
-// @version      1.1
+// @version      1.2
 // @description  Adds UI for creating Google Calendar events from Salesforce comments
 // @author       jackw@ooyala.com
 // @match        https://na5.salesforce.com/*
@@ -18,8 +18,6 @@ function addButton(){
 	var bottomRow = $("#bottomButtonRow");
 
 	var newButtonHTML = '<input class="btn" type="button" value="Set Reminder" onclick="$(\'#gcal_ext_popup\').dialog(\'open\');" />';
-
-	// TODO: Necessary wireup for GCal event creation.
 
 	topRow.append(newButtonHTML);
 	bottomRow.append(newButtonHTML);
@@ -115,6 +113,7 @@ function getGCalDate(date, dateOnly){
 	return gCalDate;
 }
 
+// TODO: Refactor using moment.js library.
 function getDatetimeLocalString(date){
 	var dateString = 
 		date.getFullYear() + '-' +
@@ -126,6 +125,7 @@ function getDatetimeLocalString(date){
 	return dateString;
 }
 
+// FIXME: Is this necessary with moment.js?
 function toTwoDigits(datePart)
 {
 	if(datePart < 10)
