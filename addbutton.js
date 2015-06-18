@@ -8,6 +8,7 @@
 // @grant        none
 // @require      https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js
 // @require      https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js
+// @require		 https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.3/moment.min.js
 // ==/UserScript==
 
 var urlStart = "http://www.google.com/calendar/event?action=TEMPLATE";
@@ -92,7 +93,7 @@ function updateURL(){
 	var fullURL = 
 		urlStart +
 		"&text=" + encodeURIComponent(title) +
-		"&dates=" + getGCalDate(new Date(start), allday) + "/" + getGCalDate(new Date(end), allday) +
+		"&dates=" + getGCalDate(moment(start), allday) + "/" + getGCalDate(moment(end), allday) +
 		"&details=" + encodeURIComponent(desc) +
 		"&sprop=website:";
 	window.open(fullURL);
